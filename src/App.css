@@ -1,8 +1,20 @@
+/* File: src/App.css */
+
+/* Base styles from existing app.css */
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  /* remove top padding: 0 top, 2rem right/left, 2rem bottom */
+  padding: 0 2rem 2rem;
   text-align: center;
+}
+
+body {
+  margin: 0;
+  background-color: #f4f4f4;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
 }
 
 .logo {
@@ -19,12 +31,8 @@
 }
 
 @keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -39,4 +47,221 @@
 
 .read-the-docs {
   color: #888;
+}
+
+.hero {
+  width: 100vw; 
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #204e7a;
+  margin-bottom: 2rem;
+}
+
+.hero-content {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  text-align: center;
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+}
+
+.hero-title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 2.75rem;
+  margin: 0;
+}
+
+/* New layout and component styles */
+.app-container {
+  position: relative;
+  background-color: #fff;
+  min-height: 100vh;
+  /* ➜ remove top padding: 0 top, 30px right/left, 30px bottom */
+  padding: 0px 30px 30px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.app-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #3b3b3b;
+  margin-bottom: 30px;
+  text-align: center;
+  padding: 20px;
+  background-color: #f4f7f6;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.main-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+  width: 100%;
+  max-width: 1300px;
+  padding: 0 20px;
+}
+
+.map-section {
+  flex: 2;
+}
+
+.map-container {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.sidebar-wrapper {
+  flex: 1;                  /* half the width of the map-section */
+  max-width: 400px;         /* cap sidebar width so it doesn’t stretch too wide */
+  display: flex;
+  flex-direction: column;
+}
+
+.zoom-controls {
+  text-align: center;
+  margin-bottom: 30px;
+}
+.zoom-controls button {
+  margin-right: 8px;
+}
+
+.sidebar {
+  background-color: #f7a86d;   /* orange */
+  padding: 1.0rem 1.5rem 1.5rem 1.5rem;             /* lighten up the interior */
+  border-radius: 0.5rem;       /* match your curved vibe */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  position: relative;
+}
+
+.select-label {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 0px;
+  color: #333;
+  display: block;
+  text-align: left;
+}
+
+.select-input {
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 100%;
+  background-color: #fff;
+  color: #333;
+}
+
+.tooltip {
+  position: fixed;
+  padding: 8px 16px;
+  background-color: rgba(0,0,0,0.7);
+  color: #fff;
+  border-radius: 5px;
+  z-index: 100;
+  pointer-events: none;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.legend {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.legend-grad-bar {
+  width: 200px;
+  height: 20px;
+  background: linear-gradient(to right, #e0a3a3, #e2b892, #d2c88e, #a2c68d, #6bbd8d);
+  margin-bottom: 8px;
+}
+.legend-grad-label {
+  font-weight: normal;
+  font-style: italic;
+  font-size: small;
+  margin-bottom: 2px;
+}
+
+.legend-color-box {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.tabs-container {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 5px;
+}
+.tab-buttons {
+  display: flex;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 10px;
+}
+.tab-button {
+  flex: 1;
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff;
+  border: none;
+  font-weight: normal;
+}
+.tab-button--active {
+  background-color: #f4f7f6;
+  border-bottom: 3px solid #3b3b3b;
+  font-weight: bold;
+}
+.tab-content {
+  font-size: 0.95rem;
+  color: #333;
+  padding: 5px 10px;
+}
+
+.states-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.state-link {
+  text-decoration: none;
+  color: #0077cc;
+  background-color: #f0f0f0;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.95rem;
+}
+
+.map-container,
+.sidebar,
+.tabs-container {
+  /* same drop-shadow on all cards */
+  box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+
+  /* consistent top & bottom margin */
+  margin: 20px 0;
 }
