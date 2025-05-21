@@ -79,7 +79,7 @@ export default function App() {
 
   const tabContent = {
     about:
-      "This tool visualizes how U.S. states incorporate climate change into their education standards. Click a state on the map to explore more details.",
+      "This tool visualizes how U.S. states incorporate climate change into their education standards. Click a state on the map to explore more details about academic standards, climate education policy, and more.",
     methodology:
       "Data was sourced from official state documents and analyzed based on consistency, language strength, and inclusion across subjects and grade levels.",
     states: (

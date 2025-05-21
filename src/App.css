@@ -213,7 +213,7 @@ body {
 }
 
 .tabs-container {
-  background-color: #fff;
+  background-color: #f2e5d7;
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 5px;
@@ -230,6 +230,7 @@ body {
   background-color: #fff;
   border: none;
   font-weight: normal;
+  border-radius: 0.5rem;
 }
 .tab-button--active {
   background-color: #f4f7f6;
@@ -237,9 +238,10 @@ body {
   font-weight: bold;
 }
 .tab-content {
-  font-size: 0.95rem;
+  font-size: 0.8rem;
   color: #333;
   padding: 5px 10px;
+  text-align: left;
 }
 
 .states-list {
@@ -253,7 +255,7 @@ body {
   background-color: #f0f0f0;
   padding: 5px 10px;
   border-radius: 5px;
-  font-size: 0.95rem;
+  font-size: 0.65rem;
 }
 
 .map-container,
