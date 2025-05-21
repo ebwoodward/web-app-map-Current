@@ -1,14 +1,14 @@
 /* File: src/App.css */
 
-/* Base styles from existing app.css */
+/* Base container */
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  /* remove top padding: 0 top, 2rem right/left, 2rem bottom */
   padding: 0 2rem 2rem;
   text-align: center;
 }
 
+/* Global typography & background */
 body {
   margin: 0;
   background-color: #f4f4f4;
@@ -17,6 +17,7 @@ body {
   line-height: 1.6;
 }
 
+/* Logo styles */
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -30,27 +31,28 @@ body {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
+/* Logo spin keyframes */
 @keyframes logo-spin {
   from { transform: rotate(0deg); }
   to   { transform: rotate(360deg); }
 }
-
 @media (prefers-reduced-motion: no-preference) {
   a:nth-of-type(2) .logo {
     animation: logo-spin infinite 20s linear;
   }
 }
 
+/* Utility */
 .card {
   padding: 2em;
 }
-
 .read-the-docs {
   color: #888;
 }
 
+/* Hero banner */
 .hero {
-  width: 100vw; 
+  width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
   height: 100px;
@@ -60,47 +62,30 @@ body {
   background: #204e7a;
   margin-bottom: 2rem;
 }
-
 .hero-content {
-  font-family: 'Poppins', sans-serif;
   font-weight: 600;
-  text-align: center;
   color: #fff;
   text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+  text-align: center;
 }
-
 .hero-title {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 2.75rem;
   margin: 0;
 }
 
-/* New layout and component styles */
+/* App container */
 .app-container {
-  position: relative;
-  background-color: #fff;
+  background-color: #eeeeee;
   min-height: 100vh;
-  /* ➜ remove top padding: 0 top, 30px right/left, 30px bottom */
-  padding: 0px 30px 30px;
+  padding: 0 30px 30px;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.app-title {
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: #3b3b3b;
-  margin-bottom: 30px;
-  text-align: center;
-  padding: 20px;
-  background-color: #f4f7f6;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
-
+/* Main layout */
 .main-content {
   display: flex;
   align-items: flex-start;
@@ -110,23 +95,26 @@ body {
   padding: 0 20px;
 }
 
+/* Map section */
 .map-section {
   flex: 2;
 }
-
 .map-container {
   width: 100%;
   height: auto;
   border-radius: 10px;
+  background-color: #fff;
 }
 
+/* Sidebar + tabs wrapper */
 .sidebar-wrapper {
-  flex: 1;                  /* half the width of the map-section */
-  max-width: 400px;         /* cap sidebar width so it doesn’t stretch too wide */
+  flex: 1;
+  max-width: 400px;
   display: flex;
   flex-direction: column;
 }
 
+/* Zoom controls */
 .zoom-controls {
   text-align: center;
   margin-bottom: 30px;
@@ -135,135 +123,146 @@ body {
   margin-right: 8px;
 }
 
+/* Sidebar panel */
 .sidebar {
-  background-color: #f7a86d;   /* orange */
-  padding: 1.0rem 1.5rem 1.5rem 1.5rem;             /* lighten up the interior */
-  border-radius: 0.5rem;       /* match your curved vibe */
-  flex: 1;
+  background-color: #f7a86d;
+  padding: 1rem 1.5rem;
+  border-radius: 0.5rem;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 0.5rem;
   position: relative;
 }
 
+/* Dropdown */
 .select-label {
   font-size: 1.2rem;
   font-weight: bold;
-  margin-bottom: 0px;
-  color: #333;
-  display: block;
-  text-align: left;
+  margin-bottom: 0.25rem;
 }
-
 .select-input {
-  padding: 10px;
+  padding: 0.5rem;
   font-size: 1rem;
   border-radius: 5px;
   border: 1px solid #ccc;
   width: 100%;
-  background-color: #fff;
+  background-color: #eeeeee;
   color: #333;
 }
 
+/* Tooltip */
 .tooltip {
   position: fixed;
-  padding: 8px 16px;
+  padding: 0.5rem 1rem;
   background-color: rgba(0,0,0,0.7);
   color: #fff;
   border-radius: 5px;
-  z-index: 100;
   pointer-events: none;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
+/* Legend */
 .legend {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-top: 10px;
-  padding: 10px;
-  background-color: #fff;
+  background-color: #eeeeee;
   border: 1px solid #ccc;
   border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  padding: 0.75rem;
+  margin-top: 0.5rem;
 }
 .legend-item {
   display: flex;
   align-items: center;
-  margin-bottom: 4px;
+  margin-bottom: 0.05rem;
 }
-
+.legend-color-box {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-right: 0.5rem;
+}
 .legend-grad-bar {
   width: 200px;
-  height: 20px;
-  background: linear-gradient(to right, #e0a3a3, #e2b892, #d2c88e, #a2c68d, #6bbd8d);
-  margin-bottom: 8px;
+  height: 1.25rem;
+  background: linear-gradient(to right,
+    #e0a3a3, #e2b892, #d2c88e, #a2c68d, #6bbd8d);
+  margin-bottom: 0.5rem;
 }
 .legend-grad-label {
-  font-weight: normal;
   font-style: italic;
   font-size: small;
-  margin-bottom: 2px;
+  margin-bottom: 0.5rem;
+  text-align: left;
 }
 
-.legend-color-box {
-  width: 20px;
-  height: 20px;
-  margin-right: 10px;
-}
-
+/* Tabs container */
 .tabs-container {
   background-color: #f2e5d7;
   border: 1px solid #ccc;
   border-radius: 8px;
-  padding: 5px;
+  padding: 0.5rem;
+  margin-top: 1rem;
 }
+
+/* Tab buttons */
 .tab-buttons {
   display: flex;
   border-bottom: 1px solid #ddd;
-  margin-bottom: 10px;
+  margin-bottom: 0.5rem;
 }
-.tab-button {
+.tab-buttons > .tab-button {
   flex: 1;
-  padding: 10px;
-  cursor: pointer;
-  background-color: #fff;
+  padding: 0.75rem;
+  background-color: #eeeeee;
   border: none;
-  font-weight: normal;
-  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.95rem;
 }
-.tab-button--active {
-  background-color: #f4f7f6;
+
+/* Round only outer corners */
+.tab-buttons > .tab-button:first-child {
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+}
+.tab-buttons > .tab-button:last-child {
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+
+/* Active tab styling (more specific selector) */
+.tab-buttons > .tab-button.tab-button--active {
+  background-color: #dddddd;   /* updated gray */
   border-bottom: 3px solid #3b3b3b;
-  font-weight: bold;
+  font-weight: 700;
+  font-size: .925rem;
 }
+
+/* Tab content */
 .tab-content {
-  font-size: 0.8rem;
-  color: #333;
-  padding: 5px 10px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
   text-align: left;
 }
 
+/* State links */
 .states-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
 }
 .state-link {
   text-decoration: none;
   color: #0077cc;
   background-color: #f0f0f0;
-  padding: 5px 10px;
+  padding: 0.25rem 0.5rem;
   border-radius: 5px;
-  font-size: 0.65rem;
+  font-size: 0.8rem;
 }
 
+/* Unified card shadows & vertical spacing */
 .map-container,
 .sidebar,
 .tabs-container {
-  /* same drop-shadow on all cards */
-  box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
-
-  /* consistent top & bottom margin */
-  margin: 20px 0;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  margin: 1rem 0;
 }

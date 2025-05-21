@@ -9,6 +9,8 @@ import {
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import chroma from "chroma-js";
+
+import Hero from "./components/Hero";
 import "./App.css";
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json";
@@ -74,27 +76,27 @@ export default function App() {
   const [tooltip, setTooltip] = useState({ isVisible: false, content: "" });
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
-  const [center, setCenter] = useState([-98, 38]);
+  const [center, setCenter] = useState([-97, 38]);
   const [activeTab, setActiveTab] = useState("about");
 
   const tabContent = {
     about:
-      "This tool visualizes how U.S. states incorporate climate change into their education standards. Click a state on the map to explore more details about academic standards, climate education policy, and more.",
+      "This tool visualizes how U.S. states incorporate climate change into their education standards. Click a state on the map to explore more details.",
     methodology:
       "Data was sourced from official state documents and analyzed based on consistency, language strength, and inclusion across subjects and grade levels.",
     states: (
       <div className="states-list">
         {[
-          "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado",
-          "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho",
-          "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana",
-          "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota",
-          "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada",
-          "New Hampshire", "New Jersey", "New Mexico", "New York",
-          "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon",
-          "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota",
-          "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington",
-          "West Virginia", "Wisconsin", "Wyoming", "District of Columbia",
+          "Alabama","Alaska","Arizona","Arkansas","California","Colorado",
+          "Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho",
+          "Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana",
+          "Maine","Maryland","Massachusetts","Michigan","Minnesota",
+          "Mississippi","Missouri","Montana","Nebraska","Nevada",
+          "New Hampshire","New Jersey","New Mexico","New York",
+          "North Carolina","North Dakota","Ohio","Oklahoma","Oregon",
+          "Pennsylvania","Rhode Island","South Carolina","South Dakota",
+          "Tennessee","Texas","Utah","Vermont","Virginia","Washington",
+          "West Virginia","Wisconsin","Wyoming","District of Columbia",
         ].map((state) => (
           <a
             key={state}
@@ -111,7 +113,9 @@ export default function App() {
 
   useEffect(() => {
     axios
-      .get("https://api.sheetbest.com/sheets/fa3943a8-5866-4c13-97af-1862a50f8a22")
+      .get(
+        "https://api.sheetbest.com/sheets/fa3943a8-5866-4c13-97af-1862a50f8a22"
+      )
       .then((res) => {
         setData(res.data);
         setLoading(false);
@@ -122,7 +126,7 @@ export default function App() {
         );
       })
       .catch((err) => {
-        console.error(err);
+        console.error("SheetBest API error:", err.response?.status, err.message);
         setLoading(false);
       });
   }, []);
@@ -151,20 +155,19 @@ export default function App() {
     if (!sym) return null;
     let samples = [];
     let isGrad = false;
-
     switch (selectedColumn) {
       case "score":
-        samples = [1, 2, 3, 4, 5];
+        samples = [1,2,3,4,5];
         isGrad = true;
         break;
       case "requires_anthropogenic_cc":
-        samples = ["Yes", "No"];
+        samples = ["Yes","No"];
         break;
       case "language_strength":
-        samples = ["Weak", "Medium", "Strong", "Excellent"];
+        samples = ["Weak","Medium","Strong","Excellent"];
         break;
       case "science_standard_type":
-        samples = ["State", "Hybrid", "NGSS"];
+        samples = ["State","Hybrid","NGSS"];
         break;
       case "social_studies_type":
         samples = [
@@ -174,24 +177,16 @@ export default function App() {
         ];
         break;
       case "subjects_covered_cc":
-        samples = ["Science", "Science and Social Studies", "Interdisciplinary"];
+        samples = ["Science","Science and Social Studies","Interdisciplinary"];
         break;
       case "grades_covered_cc_science":
-        samples = [
-          "High",
-          "Middle and High",
-          "Elementary, Middle, and High",
-        ];
+        samples = ["High","Middle and High","Elementary, Middle, and High"];
         break;
       default:
         samples = [];
-    }  // end switch
-
+    }
     return (
-      <div
-        className="legend"
-        style={{ width: getLegendWidthForColumn(selectedColumn) }}
-      >
+      <div className="legend" style={{ width: getLegendWidthForColumn(selectedColumn) }}>
         {isGrad ? (
           <>
             <div className="legend-grad-bar" />
@@ -200,17 +195,15 @@ export default function App() {
         ) : (
           samples.map((v) => (
             <div key={v} className="legend-item">
-              <div
-                className="legend-color-box"
-                style={{ backgroundColor: sym(v) }}
-              />
+              <div className="legend-color-box" style={{ backgroundColor: sym(v) }} />
               <span>{v}</span>
             </div>
           ))
         )}
       </div>
     );
-  };  // end generateLegend
+  };
+
   const renderTabs = () => (
     <div className="tabs-container">
       <div className="tab-buttons">
@@ -218,11 +211,7 @@ export default function App() {
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={
-              tab === activeTab
-                ? "tab-button tab-button--active"
-                : "tab-button"
-            }
+            className={`tab-button${tab === activeTab ? " tab-button--active" : ""}`}
           >
             {tab.charAt(0).toUpperCase() + tab.slice(1)}
           </button>
@@ -234,20 +223,15 @@ export default function App() {
 
   return (
     <>
-      {/* Full-width hero */}
-      <div className="hero">
-        <div className="hero-content">
-          <h1 className="hero-title">Climate Change Education Tracker</h1>
-        </div>
-      </div>
+      {/* Shared Hero banner */}
+      <Hero title="Climate Change Education Tracker" backLink={null} />
 
-      {/* Main app container */}
       <div className="app-container">
         {loading ? (
           <p>Loading data...</p>
         ) : (
           <div className="main-content">
-            {/* Map column */}
+            {/* Map Column */}
             <div className="map-section">
               <ComposableMap
                 projection="geoAlbersUsa"
@@ -295,16 +279,8 @@ export default function App() {
                                 outline: "none",
                                 cursor: "pointer",
                               },
-                              hover: {
-                                fill: "#FFD700",
-                                stroke: "#FFFFFF",
-                                outline: "none",
-                              },
-                              pressed: {
-                                fill: "#E42",
-                                stroke: "#FFFFFF",
-                                outline: "none",
-                              },
+                              hover: { fill: "#FFD700", stroke: "#FFFFFF", outline: "none" },
+                              pressed: { fill: "#E42", stroke: "#FFFFFF", outline: "none" },
                             }}
                           />
                         );
@@ -330,7 +306,7 @@ export default function App() {
                 </button>
                 <button
                   onClick={() => {
-                    setCenter([-98, 38]);
+                    setCenter([-97, 38]);
                     setZoom(1);
                   }}
                 >
@@ -372,7 +348,6 @@ export default function App() {
               </div>
               {renderTabs()}
             </div>
-            {/* End Sidebar + Tabs */}
           </div>
         )}
       </div>

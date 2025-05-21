@@ -1,0 +1,41 @@
+/* src/components/Hero.css */
+.hero {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #204e7a;
+    margin-bottom: 2rem;
+  }
+  
+  .hero-content {
+    text-align: center;
+    position: relative;
+  }
+  
+  .hero-back {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #fff;
+    text-decoration: none;
+    font-size: 1rem;
+  }
+  
+  .hero-back:hover {
+    text-decoration: underline;
+  }
+  
+  .hero-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 2.75rem;
+    color: #fff;
+    margin: 0;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+  }
+  
