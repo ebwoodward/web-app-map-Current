@@ -19,10 +19,7 @@ export default function StatePage() {
   return (
     <>
       {/* 1) Same hero banner as home (no backLink inside) */}
-      <Hero
-        title="Climate Change Education Tracker"
-        backLink={null}
-      />
+      <Hero title="Climate Change Education Tracker" backLink={null} />
 
       {/* 2) Below the hero: return link and state title */}
       <div style={headerBarStyle}>
@@ -35,19 +32,40 @@ export default function StatePage() {
       {/* 3) Main grid content */}
       <div style={containerStyle}>
         <div style={gridStyle}>
-          <div style={boxStyle}>
+          {/* Box 1: Academic Standards Overview (cream background) */}
+          <div
+            style={{
+              ...boxStyle,
+              backgroundColor: "#f7a86d",
+            }}
+          >
             <h2>Academic Standards Overview</h2>
             <ReactMarkdown rehypePlugins={[rehypeRaw]}>
               {content.academicOverview}
             </ReactMarkdown>
           </div>
-          <div style={boxStyle}>
+
+          {/* Box 2: Current and Recent Legislation (light gray background) */}
+          <div
+            style={{
+              ...boxStyle,
+              backgroundColor: "#aac5a7",
+            }}
+          >
             <h2>Current and Recent Legislation</h2>
             <ReactMarkdown rehypePlugins={[rehypeRaw]}>
               {content.currentLegislation}
             </ReactMarkdown>
           </div>
-          <div style={{ ...boxStyle, gridColumn: "1 / -1" }}>
+
+          {/* Box 3: Organizations (off-white, full-width) */}
+          <div
+            style={{
+              ...boxStyle,
+              gridColumn: "1 / -1",
+              backgroundColor: "#f2e5d7",
+            }}
+          >
             <h2>Organizations Advancing Climate Education</h2>
             <ul style={listStyle}>
               {content.organizations.map((org, i) => (

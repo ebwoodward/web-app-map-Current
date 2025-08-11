@@ -11,6 +11,7 @@ import axios from "axios";
 import chroma from "chroma-js";
 
 import Hero from "./components/Hero";
+import FooterBanner from "./components/footerbanner";
 import "./App.css";
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json";
@@ -28,12 +29,8 @@ const columnSymbology = {
   requires_anthropogenic_cc: (v) =>
     v === "Yes" ? "#6bbd8d" : v === "No" ? "#e0a3a3" : "#eeeeee",
   language_strength: (v) =>
-    ({
-      Weak: "#d0e6e2",
-      Medium: "#9dc9c0",
-      Strong: "#62ada1",
-      Excellent: "#2f8373",
-    }[v] || "#eeeeee"),
+    ({ Weak: "#d0e6e2", Medium: "#9dc9c0", Strong: "#62ada1", Excellent: "#2f8373" }[v] ||
+      "#eeeeee"),
   science_standard_type: (v) =>
     ({ State: "#b2a0c0", Hybrid: "#a1c3d1", NGSS: "#c4dba0" }[v] || "#eeeeee"),
   social_studies_type: (v) =>
@@ -114,19 +111,27 @@ export default function App() {
   useEffect(() => {
     axios
       .get(
-        "https://api.sheetbest.com/sheets/fa3943a8-5866-4c13-97af-1862a50f8a22"
+        "https://sheets.googleapis.com/v4/spreadsheets/1ZdulI9OWfJXCfL0lw_GnC_2UEwP2JfHvV2WLOxo--Dw/values/Sheet1?key=AIzaSyBGCOg7iK0ltTD4VL14cA-eMuM-3pjny0s"
       )
       .then((res) => {
-        setData(res.data);
+        const { values } = res.data;
+        const [header, ...rows] = values;
+        const mapped = rows.map((row) =>
+          header.reduce((obj, colName, i) => {
+            obj[colName] = row[i];
+            return obj;
+          }, {})
+        );
+        setData(mapped);
         setLoading(false);
         setSelectedColumn(
-          Object.keys(res.data[0]).find(
+          Object.keys(mapped[0]).find(
             (k) => !["state", "abbreviation", "includes_cc"].includes(k)
           )
         );
       })
       .catch((err) => {
-        console.error("SheetBest API error:", err.response?.status, err.message);
+        console.error("API error:", err.response?.status, err.message);
         setLoading(false);
       });
   }, []);
@@ -139,14 +144,22 @@ export default function App() {
 
   const getLegendWidthForColumn = (col) => {
     switch (col) {
-      case "score": return "200px";
-      case "requires_anthropogenic_cc": return "160px";
-      case "language_strength": return "250px";
-      case "science_standard_type": return "200px";
-      case "social_studies_type": return "300px";
-      case "subjects_covered_cc": return "250px";
-      case "grades_covered_cc_science": return "300px";
-      default: return "auto";
+      case "score":
+        return "200px";
+      case "requires_anthropogenic_cc":
+        return "160px";
+      case "language_strength":
+        return "250px";
+      case "science_standard_type":
+        return "200px";
+      case "social_studies_type":
+        return "300px";
+      case "subjects_covered_cc":
+        return "250px";
+      case "grades_covered_cc_science":
+        return "300px";
+      default:
+        return "auto";
     }
   };
 
@@ -157,17 +170,17 @@ export default function App() {
     let isGrad = false;
     switch (selectedColumn) {
       case "score":
-        samples = [1,2,3,4,5];
+        samples = [1, 2, 3, 4, 5];
         isGrad = true;
         break;
       case "requires_anthropogenic_cc":
-        samples = ["Yes","No"];
+        samples = ["Yes", "No"];
         break;
       case "language_strength":
-        samples = ["Weak","Medium","Strong","Excellent"];
+        samples = ["Weak", "Medium", "Strong", "Excellent"];
         break;
       case "science_standard_type":
-        samples = ["State","Hybrid","NGSS"];
+        samples = ["State", "Hybrid", "NGSS"];
         break;
       case "social_studies_type":
         samples = [
@@ -177,16 +190,23 @@ export default function App() {
         ];
         break;
       case "subjects_covered_cc":
-        samples = ["Science","Science and Social Studies","Interdisciplinary"];
+        samples = ["Science", "Science and Social Studies", "Interdisciplinary"];
         break;
       case "grades_covered_cc_science":
-        samples = ["High","Middle and High","Elementary, Middle, and High"];
+        samples = [
+          "High",
+          "Middle and High",
+          "Elementary, Middle, and High",
+        ];
         break;
       default:
         samples = [];
     }
     return (
-      <div className="legend" style={{ width: getLegendWidthForColumn(selectedColumn) }}>
+      <div
+        className="legend"
+        style={{ width: getLegendWidthForColumn(selectedColumn) }}
+      >
         {isGrad ? (
           <>
             <div className="legend-grad-bar" />
@@ -195,7 +215,10 @@ export default function App() {
         ) : (
           samples.map((v) => (
             <div key={v} className="legend-item">
-              <div className="legend-color-box" style={{ backgroundColor: sym(v) }} />
+              <div
+                className="legend-color-box"
+                style={{ backgroundColor: sym(v) }}
+              />
               <span>{v}</span>
             </div>
           ))
@@ -211,7 +234,9 @@ export default function App() {
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`tab-button${tab === activeTab ? " tab-button--active" : ""}`}
+            className={`tab-button${
+              tab === activeTab ? " tab-button--active" : ""
+            }`}
           >
             {tab.charAt(0).toUpperCase() + tab.slice(1)}
           </button>
@@ -279,8 +304,16 @@ export default function App() {
                                 outline: "none",
                                 cursor: "pointer",
                               },
-                              hover: { fill: "#FFD700", stroke: "#FFFFFF", outline: "none" },
-                              pressed: { fill: "#E42", stroke: "#FFFFFF", outline: "none" },
+                              hover: {
+                                fill: "#FFD700",
+                                stroke: "#FFFFFF",
+                                outline: "none",
+                              },
+                              pressed: {
+                                fill: "#E42",
+                                stroke: "#FFFFFF",
+                                outline: "none",
+                              },
                             }}
                           />
                         );
@@ -289,6 +322,7 @@ export default function App() {
                   </Geographies>
                 </ZoomableGroup>
               </ComposableMap>
+
               <div className="zoom-controls">
                 <button onClick={() => setZoom((z) => Math.min(z * 1.5, 20))}>
                   ＋
@@ -351,6 +385,9 @@ export default function App() {
           </div>
         )}
       </div>
+
+      {/* matching banner at the bottom */}
+      <FooterBanner />
     </>
   );
 }

@@ -8,9 +8,13 @@
     align-items: center;
     justify-content: center;
     background: #204e7a;
-    margin-bottom: 2rem;
+    margin-bottom: 0;
   }
   
+.hero:not(.hero--bottom) {
+  margin-bottom: 2rem;
+}
+
   .hero-content {
     text-align: center;
     position: relative;
@@ -39,3 +43,7 @@
     text-shadow: 0 1px 3px rgba(0,0,0,0.4);
   }
   
+  .hero--bottom {
+    /* push it down, but remove the default bottom-gap */
+    margin-top: 2rem;
+  }
